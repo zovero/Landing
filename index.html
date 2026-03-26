@@ -1,45 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zovero - Coming Soon</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zovero - Smart Car Comfort</title>
 
-<style>
-    body{
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#ffffff;
-        font-family:Arial, Helvetica, sans-serif;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .center-text{
-        text-align:center;
-        color:red;
+    body {
+      background: #000;
+      color: #fff;
+      line-height: 1.6;
     }
 
-    .brand{
-        font-size:64px;
-        font-weight:bold;
-        letter-spacing:3px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: #000;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .coming{
-        font-size:28px;
-        margin-top:10px;
+    header h1 {
+      color: red;
+      font-size: 28px;
     }
-</style>
+
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: red;
+    }
+
+    /* HERO SECTION WITH IMAGE */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      background:
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+        url('hero.jpg');
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      color: red;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      background: red;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    section {
+      padding: 80px 50px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      transition: 0.3s;
+      border: 1px solid #222;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: red;
+    }
+
+    .card h3 {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+      color: #ccc;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .feature {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #222;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="center-text">
-    <div class="brand">Zovero</div>
-    <div class="coming">Coming Soon...😊</div>
-</div>
+<header>
+  <h1>Zovero</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Drive Cooler. Drive Smarter.</h2>
+  <p>Premium cooling seats, wind boosters, and smart car accessories designed for ultimate driving comfort.</p>
+  <button class="btn">Explore Products</button>
+</section>
+
+<section id="products">
+  <h2 style="text-align:center; margin-bottom:40px; color:red;">Our Products</h2>
+  <div class="products">
+    <div class="card">
+      <h3>Cooling Seat</h3>
+      <p>Stay cool during long drives with advanced airflow technology.</p>
+    </div>
+    <div class="card">
+      <h3>Wind Booster</h3>
+      <p>Enhance AC performance and improve airflow efficiency.</p>
+    </div>
+    <div class="card">
+      <h3>Car Accessories</h3>
+      <p>High-quality accessories designed for comfort and style.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2 style="text-align:center; color:red; margin-bottom:20px;">About Zovero</h2>
+  <p class="about">
+    Zovero is a modern automotive comfort brand focused on delivering innovative cooling and airflow solutions. Our mission is to redefine driving comfort with smart and stylish accessories.
+  </p>
+</section>
+
+<section>
+  <h2 style="text-align:center; color:red; margin-bottom:40px;">Why Choose Us</h2>
+  <div class="features">
+    <div class="feature">High Quality Materials</div>
+    <div class="feature">Innovative Technology</div>
+    <div class="feature">Affordable Pricing</div>
+    <div class="feature">Easy Installation</div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 style="text-align:center; color:red; margin-bottom:20px;">Contact Us</h2>
+  <p style="text-align:center; color:#ccc;">
+    Email: support@zovero.in | Phone: +91 98942 99399
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 Zovero. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
