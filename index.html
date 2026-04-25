@@ -1,218 +1,995 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="dark" lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zovero - Smart Car Comfort</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zovero | Premium Ventilated Cooling Seats & WindBooster Automotive Accessories</title>
+    <meta name="description" content="Elevate your driving experience with Zovero. Premium automotive accessories including high-performance ventilated cooling seats and WindBooster performance kits. Engineered for comfort and precision." />
+    <meta name="keywords" content="Zovero, Cooling Seat, Ventilated Cooling Seat, WindBooster, Automotive, Accessories, Car Performance, Luxury Car Accessories" />
+    <link rel="canonical" href="https://zovero.com/" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://zovero.com/" />
+    <meta property="og:title" content="Zovero | Premium Ventilated Cooling Seats & WindBooster Automotive Accessories" />
+    <meta property="og:description" content="Experience the Next Level with Zovero. Advanced ventilated cooling seats and WindBooster throttle controllers for peak automotive performance." />
+    <meta property="og:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuCeEirNf-hyKPO5QX7dMCCGKe9t2MjNOn_hdOb-Sxp54DnnZBm9mUupDymNE4ntgiUmVqmKveN30LhdDGMLTsPqVB1iEZ3Hb0jzrCGj_trnb-Q4whlAr6ATI-p-tNTKVBOWoRromXSwyne-z_-fT_QHtkPeHKGBpxEZCiG5YrYM539S84rbj2MG8q9B1_17v0bnf4uU6jSxhjDF1wHkQ7MioBxj8p5sRVll3Uy4_hBtEAajePIOx8GLH_7Z9d6zpkJ9-FIvG-v35Wn5" />
 
-    body {
-      background: #000;
-      color: #fff;
-      line-height: 1.6;
-    }
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://zovero.com/" />
+    <meta property="twitter:title" content="Zovero | Premium Ventilated Cooling Seats & WindBooster Automotive Accessories" />
+    <meta property="twitter:description" content="Experience the Next Level with Zovero. Advanced ventilated cooling seats and WindBooster throttle controllers for peak automotive performance." />
+    <meta property="twitter:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuCeEirNf-hyKPO5QX7dMCCGKe9t2MjNOn_hdOb-Sxp54DnnZBm9mUupDymNE4ntgiUmVqmKveN30LhdDGMLTsPqVB1iEZ3Hb0jzrCGj_trnb-Q4whlAr6ATI-p-tNTKVBOWoRromXSwyne-z_-fT_QHtkPeHKGBpxEZCiG5YrYM539S84rbj2MG8q9B1_17v0bnf4uU6jSxhjDF1wHkQ7MioBxj8p5sRVll3Uy4_hBtEAajePIOx8GLH_7Z9d6zpkJ9-FIvG-v35Wn5" />
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background: #000;
-      border-bottom: 1px solid #222;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    header h1 {
-      color: red;
-      font-size: 28px;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #131313;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    nav a {
-      color: #fff;
-      margin-left: 20px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+        /* Noise Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 100;
+            filter: contrast(120%) brightness(120%);
+        }
 
-    nav a:hover {
-      color: red;
-    }
+        /* Interactive Background Glow */
+        #mouse-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle 600px at var(--mouse-x) var(--mouse-y), rgba(255, 0, 0, 0.1), transparent 80%);
+            transition: background 0.2s ease;
+        }
 
-    /* HERO SECTION WITH IMAGE */
-    .hero {
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-      background:
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
-        url('hero.jpg');
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+        /* Premium Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #FF0000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding-right: 0.1em;
+            margin-right: -0.1em;
+        }
 
-    .hero h2 {
-      font-size: 48px;
-      color: red;
-      margin-bottom: 20px;
-    }
+        .text-gradient-red {
+            background: linear-gradient(135deg, #FF0000 0%, #93000a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding-right: 0.1em;
+            margin-right: -0.1em;
+        }
 
-    .hero p {
-      max-width: 600px;
-      margin-bottom: 30px;
-      color: #ccc;
-    }
+        .font-space-grotesk {
+            font-family: 'Space Grotesk', sans-serif;
+        }
 
-    .btn {
-      padding: 12px 30px;
-      background: red;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.3s;
-    }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
 
-    .btn:hover {
-      background: #fff;
-      color: #000;
-    }
+        .red-glow {
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+        }
 
-    section {
-      padding: 80px 50px;
-    }
+        .red-glow-strong {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+        }
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+        .glass-panel {
+            background: rgba(19, 19, 19, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
 
-    .card {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      transition: 0.3s;
-      border: 1px solid #222;
-    }
+        .glass-panel-red {
+            background: rgba(40, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
 
-    .card:hover {
-      transform: translateY(-10px);
-      border-color: red;
-    }
+        .vignette-overlay {
+            background: linear-gradient(to bottom, rgba(19, 19, 19, 0) 60%, rgba(19, 19, 19, 1) 100%);
+        }
 
-    .card h3 {
-      color: red;
-      margin-bottom: 10px;
-    }
+        .brand-red {
+            color: #FF0000;
+        }
 
-    .about {
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
-      color: #ccc;
-    }
+        .bg-brand-red {
+            background-color: #FF0000;
+        }
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      text-align: center;
-    }
+        .border-brand-red {
+            border-color: #FF0000;
+        }
 
-    .feature {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #222;
-    }
+        /* Premium Form Focus */
+        .form-input-premium:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            background: rgba(255, 0, 0, 0.02);
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      border-top: 1px solid #222;
-      color: #777;
-    }
-  </style>
+        /* Spotlight Hover for Dark Cards */
+        .spotlight-card {
+            position: relative;
+            background: #1c1b1b;
+            overflow: hidden;
+        }
+
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle 400px at var(--x, 0) var(--y, 0), rgba(255, 0, 0, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Animated Glowing Border for Features */
+        .glow-border {
+            position: relative;
+            z-index: 1;
+        }
+
+        .glow-border::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .glow-border:hover::after {
+            opacity: 1;
+            animation: border-glow-move 2s linear infinite;
+        }
+
+        @keyframes border-glow-move {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Staggered Reveal Delays */
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* Grid Mesh Background */
+        .grid-mesh {
+            background-image: linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Parallax Image Scale */
+        .parallax-wrap {
+            overflow: hidden;
+        }
+
+        .parallax-img {
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .parallax-wrap:hover .parallax-img {
+            transform: scale(1.08);
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+            background: #131313;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(0.2) contrast(1.1);
+        }
+
+        .branch-btn.active {
+            background: #FF0000;
+            border-color: #FF0000;
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Carousel Styles */
+        .product-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+        }
+
+        .product-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .carousel-dot.active {
+            background: #FF0000;
+            width: 2rem;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#3a3939",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#930100",
+                        "secondary-fixed-dim": "#ffb4a8",
+                        "on-tertiary-container": "#00285b",
+                        "on-secondary-fixed-variant": "#930100",
+                        "on-primary-container": "#ffffff",
+                        "surface-container": "#201f1f",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed": "#ffdad4",
+                        "outline": "#b18780",
+                        "on-tertiary": "#002f67",
+                        "on-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#001a40",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed": "#d7e2ff",
+                        "error-container": "#93000a",
+                        "primary-container": "#FF0000",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#353534",
+                        "on-primary-fixed": "#410000",
+                        "surface-container-low": "#1c1b1b",
+                        "surface": "#131313",
+                        "inverse-primary": "#FF0000",
+                        "primary": "#FF0000",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "on-secondary-fixed": "#410000",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-surface": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#ebbbb4",
+                        "primary-fixed-dim": "#FF0000",
+                        "secondary": "#FF0000",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#acc7ff",
+                        "on-tertiary-fixed-variant": "#004491",
+                        "surface-variant": "#353534",
+                        "on-secondary-container": "#ffffff",
+                        "primary-fixed": "#ffdad4",
+                        "outline-variant": "#603e39",
+                        "surface-tint": "#FF0000",
+                        "secondary-container": "#FF0000",
+                        "tertiary-container": "#488fff",
+                        "background": "#131313",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "2px",
+                        "xl": "4px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
 </head>
 
-<body>
+<body class="bg-background text-on-surface">
+    <!-- Interactive Background -->
+    <div id="mouse-glow"></div>
 
-<header>
-  <h1>Zovero</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#products">Products</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <h2>Drive Cooler. Drive Smarter.</h2>
-  <p>Premium cooling seats, wind boosters, and smart car accessories designed for ultimate driving comfort.</p>
-  <button class="btn">Explore Products</button>
-</section>
-
-<section id="products">
-  <h2 style="text-align:center; margin-bottom:40px; color:red;">Our Products</h2>
-  <div class="products">
-    <div class="card">
-      <h3>Cooling Seat</h3>
-      <p>Stay cool during long drives with advanced airflow technology.</p>
+    <!-- TopNavBar - Pill Shape Glassmorphism -->
+    <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-4rem)] max-w-5xl">
+        <nav
+            class="glass-panel rounded-full px-8 h-16 flex justify-between items-center shadow-2xl border border-white/10 backdrop-blur-2xl">
+            <div class="text-xl font-black text-primary tracking-tighter uppercase font-space-grotesk"><span
+                    class="italic">ZOVERO</span></div>
+            <div
+                class="hidden md:flex items-center gap-10 font-space-grotesk tracking-tight uppercase text-[11px] font-bold">
+                <a class="text-primary border-b border-primary pb-1" href="#home">Home</a>
+                <a class="text-zinc-400 hover:text-primary transition-colors" href="#products">Products</a>
+                <a class="text-zinc-400 hover:text-primary transition-colors" href="#about">About</a>
+                <a class="text-zinc-400 hover:text-primary transition-colors" href="#contact">Contact</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://wa.me/c/919952076707" target="_blank"
+                    class="material-symbols-outlined text-zinc-400 hover:text-primary transition-all duration-300 text-xl">shopping_cart</a>
+                <a href="#contact"
+                    class="bg-primary text-white px-5 py-2 font-black text-[10px] tracking-widest uppercase hover:bg-red-700 transition-all rounded-full flex items-center justify-center">
+                    GET STARTED
+                </a>
+            </div>
+        </nav>
     </div>
-    <div class="card">
-      <h3>Wind Booster</h3>
-      <p>Enhance AC performance and improve airflow efficiency.</p>
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img alt="Luxury Car Interior" class="w-full h-full object-cover grayscale-[0.3] contrast-[1.2]"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeEirNf-hyKPO5QX7dMCCGKe9t2MjNOn_hdOb-Sxp54DnnZBm9mUupDymNE4ntgiUmVqmKveN30LhdDGMLTsPqVB1iEZ3Hb0jzrCGj_trnb-Q4whlAr6ATI-p-tNTKVBOWoRromXSwyne-z_-fT_QHtkPeHKGBpxEZCiG5YrYM539S84rbj2MG8q9B1_17v0bnf4uU6jSxhjDF1wHkQ7MioBxj8p5sRVll3Uy4_hBtEAajePIOx8GLH_7Z9d6zpkJ9-FIvG-v35Wn5" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent"></div>
+            <div class="absolute inset-0 vignette-overlay"></div>
+        </div>
+        <div class="container mx-auto px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div class="md:col-span-7 flex flex-col items-start gap-6 reveal transition-delay-100">
+                <div
+                    class="inline-flex items-center gap-2 border border-primary/40 bg-primary/10 px-3 py-1 text-primary tracking-[0.2em] text-[10px] uppercase font-bold">
+                    <span class="w-1.5 h-1.5 bg-primary animate-pulse"></span> Intelligent Engineering
+                </div>
+                <h1
+                    class="text-6xl md:text-5xl font-space-grotesk font-black leading-[0.9] tracking-tighter text-on-surface">
+                    CHOOSE <span class="text-primary italic">ZOVERO.</span><br />
+                    EXPERIENCE THE <span class="text-gradient">NEXT LEVEL.</span>
+                </h1>
+                <p class="text-zinc-400 max-w-lg text-lg font-light leading-relaxed">
+                    Your car deserves more than the ordinary.
+                    Zovero brings advanced automotive accessories built for comfort and performance.
+                    Every product delivered is designed to enhance how your car feels and responds.
+                </p>
+                <div class="flex gap-4 mt-4">
+                    <a href="#products"
+                        class="bg-primary text-white px-10 py-4 font-black tracking-widest uppercase flex items-center gap-3 hover:bg-red-700 transition-all red-glow-strong">
+                        EXPLORE PRODUCTS
+                        <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                    </a>
+                    <button
+                        class="border border-white/20 px-10 py-4 font-black tracking-widest uppercase hover:bg-white/5 transition-all text-white">
+                        WATCH TECH
+                    </button>
+                </div>
+            </div>
+            <div class="hidden md:flex md:col-span-5 items-end justify-end">
+                <div class="glass-panel p-8 red-glow border-l-4 border-primary relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
+                    <div class="relative z-10">
+                        <div class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">Zovero Enabled
+                        </div>
+                        <div class="text-5xl font-space-grotesk font-black text-on-surface">10<span
+                                class="text-primary">x</span></div>
+                        <div class="w-full bg-zinc-800 h-1 mt-4">
+                            <div class="bg-primary h-full w-[85%] shadow-[0_0_10px_#FF0000]"></div>
+                        </div>
+                        <div class="text-[10px] uppercase tracking-tighter text-primary mt-2 font-bold">Boosting
+                            Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Products Grid -->
+    <section id="products" class="py-24 bg-surface px-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 reveal">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl md:text-5xl font-space-grotesk font-black tracking-tighter uppercase mb-4">
+                        ELITE <span class="text-primary italic">Automotive Accessories</span>
+                    </h2>
+                    <div class="h-1 w-24 bg-primary mb-4"></div>
+                    <p class="text-zinc-500 uppercase tracking-widest text-xs font-bold">High-Performance Components and Cooling Seat Technology</p>
+                </div>
+                <div
+                    class="text-primary text-[10px] uppercase tracking-[0.3em] font-black border-b border-primary pb-1">
+                    Catalogue</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Featured Product Carousel -->
+                <div id="product-carousel"
+                    class="md:col-span-8 bg-surface-container-low relative overflow-hidden h-[480px] border border-white/5 hover:border-primary/30 transition-colors reveal">
+
+                    <!-- Slide 1: Cooling Seat -->
+                    <div class="product-slide active" id="slide-0">
+                        <img alt="Cooling Seat"
+                            class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDiWZHtg3qC3H0ihxsRaAgWAfohXBf-Ws8WABU6cF2rvKoPFUj8MZbTz5LA1v4qai1I6AfRp50aLt578BIqJ4sksdc0UjgDWmx-u-MqwG1HrekYF7EWfNx_XbSo1jaOT5tvkjcANz4IY8XvvCRzvKzitEE8r5AA2wU_NmMDgryJrdOMQqn9h0PgKkV8hOWe17hYj57v3i7ON7ktL77jZcftPBpRq_c3teu4mejH42mpgffed2IcuasGGdz1VxgM3doEiVl4m1CD7Cd" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-10 z-10">
+                            <span
+                                class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Featured</span>
+                            <h3 class="text-5xl font-space-grotesk font-black uppercase mb-3">Ventilated Cooling Seat</h3>
+                            <p class="text-zinc-400 max-w-sm mb-6 font-light leading-relaxed">
+                                Experience peak comfort with our Ventilated Cooling Seat. Active airflow integration with biometric temperature sensors keeps you cool in any climate. <br>
+                                <span class="text-white font-bold tracking-widest text-[10px] uppercase mt-2 block">
+                                    Variants: Pro 16 Fans & Max 24 Fans
+                                </span>
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#cooling-catalogue.pdf"
+                                    class="bg-zinc-900 border border-white/10 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">download</span> Catalogue
+                                </a>
+                                <a href="#contact"
+                                    class="bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">
+                                    Enquire Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Windbooster -->
+                    <div class="product-slide" id="slide-1">
+                        <img alt="Windbooster"
+                            class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6r-O-P6b-iB_9P-B7o_8yN-U-V-w-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-10 z-10">
+                            <span
+                                class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Now
+                                Trending</span>
+                            <h3 class="text-5xl font-space-grotesk font-black uppercase mb-3">Windbooster</h3>
+                            <p class="text-zinc-400 max-w-sm mb-6 font-light leading-relaxed">
+                                Boost your car performance with Windbooster Throttle Controller. <br>
+                                <span class="text-white font-bold tracking-widest text-[10px] uppercase mt-2 block">
+                                    Instant Response & Pure Performance
+                                </span>
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#windbooster-catalogue.pdf"
+                                    class="bg-zinc-900 border border-white/10 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">download</span> Catalogue
+                                </a>
+                                <a href="#contact"
+                                    class="bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">
+                                    Enquire Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide Controls -->
+                    <div class="absolute top-1/2 -translate-y-1/2 left-4 z-20">
+                        <button onclick="prevSlide()"
+                            class="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-primary transition-all">
+                            <span class="material-symbols-outlined text-white">chevron_left</span>
+                        </button>
+                    </div>
+                    <div class="absolute top-1/2 -translate-y-1/2 right-4 z-20">
+                        <button onclick="nextSlide()"
+                            class="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-primary transition-all">
+                            <span class="material-symbols-outlined text-white">chevron_right</span>
+                        </button>
+                    </div>
+
+                    <!-- Slide Indicators -->
+                    <div class="absolute bottom-10 right-10 z-20 flex gap-2">
+                        <div class="carousel-dot w-4 h-1 bg-white/20 transition-all duration-500 active" id="dot-0">
+                        </div>
+                        <div class="carousel-dot w-4 h-1 bg-white/20 transition-all duration-500" id="dot-1"></div>
+                    </div>
+                </div>
+
+                <!-- Wind Booster Card (Standalone Refined) -->
+                <div
+                    class="md:col-span-4 bg-surface-container-low p-10 flex flex-col justify-between border border-white/5 hover:border-primary/30 transition-colors relative spotlight-card reveal h-[480px]">
+                    <div class="flex justify-between items-start">
+                        <div class="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary text-3xl">bolt</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-primary font-black font-space-grotesk text-xl">NOW TRENDING</div>
+
+                        </div>
+                    </div>
+
+    </section>
+    <div
+        class="md:col-span-8 bg-black border border-white/5 h-[200px] flex items-center justify-center relative overflow-hidden group">
+        <div
+            class="text-zinc-900 text-9xl font-black font-space-grotesk absolute opacity-20 group-hover:text-primary transition-colors duration-700 select-none">
+            PRECISION</div>
+        <div class="relative z-10 flex flex-col items-center">
+            <p class="text-center font-space-grotesk font-bold text-xl uppercase mb-3 tracking-[0.3em] text-white">
+                Follow us to get more updates</p>
+            <div class="flex gap-2">
+                <span class="w-16 h-1 bg-primary"></span>
+                <span class="w-16 h-1 bg-zinc-800"></span>
+                <span class="w-16 h-1 bg-zinc-800"></span>
+            </div>
+        </div>
     </div>
-    <div class="card">
-      <h3>Car Accessories</h3>
-      <p>High-quality accessories designed for comfort and style.</p>
-    </div>
-  </div>
-</section>
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-surface-container-lowest relative overflow-hidden">
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/2"></div>
+        <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="relative reveal">
+                <div class="absolute -top-6 -left-6 w-40 h-40 border-t-4 border-l-4 border-primary z-20"></div>
+                <!-- Interactive Google Map -->
+                <div id="map" class="shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.44153023067!2d76.8848325983794!3d11.012014524419047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f976613%3A0x6ed70d4c06cf497c!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1713631545678!5m2!1sen!2sin"
+                        class="map-iframe" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- Branch Selector Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-6">
+                    <button onclick="switchBranch('coimbatore')"
+                        class="branch-btn px-4 py-3 bg-zinc-900 border border-white/5 text-xs font-black tracking-widest uppercase hover:border-primary transition-all active"
+                        id="btn-coimbatore">Coimbatore</button>
+                    <button onclick="switchBranch('madurai')"
+                        class="branch-btn px-4 py-3 bg-zinc-900 border border-white/5 text-xs font-black tracking-widest uppercase hover:border-primary transition-all"
+                        id="btn-madurai">Madurai</button>
+                    <button onclick="switchBranch('salem')"
+                        class="branch-btn px-4 py-3 bg-zinc-900 border border-white/5 text-xs font-black tracking-widest uppercase hover:border-primary transition-all"
+                        id="btn-salem">Salem</button>
+                    <button onclick="switchBranch('chennai')"
+                        class="branch-btn px-4 py-3 bg-zinc-900 border border-white/5 text-xs font-black tracking-widest uppercase hover:border-primary transition-all"
+                        id="btn-chennai">Chennai</button>
+                </div>
 
-<section id="about">
-  <h2 style="text-align:center; color:red; margin-bottom:20px;">About Zovero</h2>
-  <p class="about">
-    Zovero is a modern automotive comfort brand focused on delivering innovative cooling and airflow solutions. Our mission is to redefine driving comfort with smart and stylish accessories.
-  </p>
-</section>
+                <!-- Branch Contact Info Panel -->
+                <div id="branch-info" class="mt-4 p-6 bg-primary/5 border border-primary/20 reveal">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-primary text-xl">location_on</span>
+                        </div>
+                        <div>
+                            <h4 id="branch-name"
+                                class="font-space-grotesk font-black uppercase text-sm tracking-widest">
+                                Zovero Coimbatore HQ</h4>
+                            <p id="branch-address" class="text-zinc-500 text-xs mt-1 leading-relaxed">No. 42, Avinashi
+                                Road, Civil Aerodrome Post, Peelamedu, Coimbatore - 641014</p>
+                            <div class="flex gap-6 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary text-xs">call</span>
+                                    <span id="branch-phone" class="text-white text-xs font-bold">+91 98765 43210</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary text-xs">mail</span>
+                                    <span id="branch-email" class="text-white text-xs font-bold">cb@zovero.com</span>
+                                </div>
+                            </div>
+                            <!-- Drive To Button -->
+                            <a id="branch-drive" href="#" target="_blank"
+                                class="inline-flex items-center gap-2 mt-6 px-6 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                                <span class="material-symbols-outlined text-sm">directions_car</span>
+                                Drive to Branch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-8 reveal">
+                <h2
+                    class="text-4xl md:text-7xl font-space-grotesk font-black tracking-tighter uppercase leading-[0.85]">
+                    About Us <br />
+                    <span class="text-gradient-red italic">Who we are</span>
+                </h2>
+                <p class="text-zinc-400 text-lg leading-relaxed font-light">
+                    Zovero is a Coimbatore-based automotive accessories brand driven by experienced automotive
+                    enthusiasts who understand what true car lovers expect. With our head office in Coimbatore and a
+                    growing presence across multiple branches in Tamil Nadu, we bring premium, performance-focused
+                    products closer to drivers across India. <br>
 
-<section>
-  <h2 style="text-align:center; color:red; margin-bottom:40px;">Why Choose Us</h2>
-  <div class="features">
-    <div class="feature">High Quality Materials</div>
-    <div class="feature">Innovative Technology</div>
-    <div class="feature">Affordable Pricing</div>
-    <div class="feature">Easy Installation</div>
-  </div>
-</section>
+                    We specialize in innovative car accessories that enhance comfort, performance, and overall driving
+                    experience. Every Zovero product is thoughtfully crafted, easy to install, and designed to deliver
+                    real-world results for modern drivers. <br>
 
-<section id="contact">
-  <h2 style="text-align:center; color:red; margin-bottom:20px;">Contact Us</h2>
-  <p style="text-align:center; color:#ccc;">
-    Email: support@zovero.in | Phone: +91 98942 99399
-  </p>
-</section>
+                    Key Highlights: <br>
+                    • Coimbatore-based company with strong automotive expertise <br>
+                    • Multiple branches across Tamil Nadu <br>
+                    • Products designed for car enthusiasts across India <br>
+                    • Focus on comfort, performance, and reliability <br>
 
-<footer>
-  <p>© 2026 Zovero. All rights reserved.</p>
-</footer>
+                    Zovero is committed to making every drive smoother, cooler, and more responsive.
+                </p>
+                <div class="grid grid-cols-2 gap-8 pt-8 border-t border-primary/30">
+                    <div>
+                        <div class="text-primary text-4xl font-space-grotesk font-black">10+ Yrs</div>
+                        <div class="text-[10px] uppercase tracking-widest text-zinc-500 font-black mt-1">Automotive
+                            Experience</div>
+                    </div>
+                    <div>
+                        <div class="text-primary text-4xl font-space-grotesk font-black">4000+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-zinc-500 font-black mt-1">Trusted
+                            Customers
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="py-24 bg-surface px-8 border-y border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-3xl font-space-grotesk font-black uppercase tracking-tighter mb-4">WHY CHOOSE <span
+                        class="text-primary italic">ZOVERO</span></h2>
+                <div class="w-32 h-1 bg-primary mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal">
+                <!-- Feature 1 -->
+                <div
+                    class="group p-8 bg-zinc-900 border border-white/5 hover:border-primary/30 transition-all duration-300 glow-border reveal-delay-1">
+                    <div
+                        class="w-14 h-14 bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl" data-icon="diamond">diamond</span>
+                    </div>
+                    <h3 class="font-space-grotesk font-black uppercase mb-3 text-sm tracking-[0.2em]">Premium Quality
+                        Materials</h3>
+                    <p class="text-zinc-500 text-[11px] leading-relaxed uppercase tracking-tight font-bold">Constructed
+                        with high-tensile carbon fibers and heat-dissipating ceramics.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div
+                    class="group p-8 bg-zinc-900 border border-white/5 hover:border-primary/30 transition-all duration-300 glow-border reveal-delay-2">
+                    <div
+                        class="w-14 h-14 bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl" data-icon="memory">memory</span>
+                    </div>
+                    <h3 class="font-space-grotesk font-black uppercase mb-3 text-sm tracking-[0.2em]">Innovative
+                        Technology</h3>
+                    <p class="text-zinc-500 text-[11px] leading-relaxed uppercase tracking-tight font-bold">Proprietary
+                        AI algorithms that predict heat spikes before they occur.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="group p-8 bg-zinc-900 border border-white/5 hover:border-primary/30 transition-all duration-300 glow-border reveal-delay-3">
+                    <div
+                        class="w-14 h-14 bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl"
+                            data-icon="payments">payments</span>
+                    </div>
+                    <h3 class="font-space-grotesk font-black uppercase mb-3 text-sm tracking-[0.2em]">Affordable Pricing
+                    </h3>
+                    <p class="text-zinc-500 text-[11px] leading-relaxed uppercase tracking-tight font-bold">Premium
+                        performance engineered to be accessible for enthusiasts.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div
+                    class="group p-8 bg-zinc-900 border border-white/5 hover:border-primary/30 transition-all duration-300 glow-border reveal-delay-4">
+                    <div
+                        class="w-14 h-14 bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl" data-icon="bolt">bolt</span>
+                    </div>
+                    <h3 class="font-space-grotesk font-black uppercase mb-3 text-sm tracking-[0.2em]">Easy Installation
+                    </h3>
+                    <p class="text-zinc-500 text-[11px] leading-relaxed uppercase tracking-tight font-bold">
+                        Plug-and-play modular design compatible with major luxury platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-surface-container-lowest grid-mesh relative">
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest pointer-events-none">
+        </div>
+        <div class="container mx-auto px-8 max-w-6xl reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="text-5xl font-space-grotesk font-black tracking-tighter uppercase mb-6 leading-none">GET
+                        IN <span class="text-gradient italic">TOUCH</span></h2>
+                    <div class="w-20 h-2 bg-primary mb-12"></div>
+                    <p class="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-12 font-black">Connect with our
+                        engineering support team</p>
+                    <div class="space-y-10">
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 border-2 border-primary/20 flex items-center justify-center group-hover:border-primary transition-colors">
+                                <span class="material-symbols-outlined text-primary text-2xl"
+                                    data-icon="mail">mail</span>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-zinc-600 font-black uppercase tracking-widest">Email
+                                    Support</div>
+                                <div class="font-space-grotesk font-bold text-xl text-white">support@zovero.in</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 border-2 border-primary/20 flex items-center justify-center group-hover:border-primary transition-colors">
+                                <span class="material-symbols-outlined text-primary text-2xl"
+                                    data-icon="phone_in_talk">phone_in_talk</span>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-zinc-600 font-black uppercase tracking-widest">Call
+                                    Technical</div>
+                                <div class="font-space-grotesk font-bold text-xl text-white">+91 98942 99399</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-black p-12 border-l-4 border-primary red-glow-strong">
+                    <form action="#" class="space-y-8">
+                        <div>
+                            <label class="text-[10px] uppercase font-black text-primary tracking-widest mb-3 block">Full
+                                Name</label>
+                            <input
+                                class="w-full bg-transparent border-0 border-b-2 border-zinc-800 text-on-surface focus:ring-0 focus:border-primary transition-all py-3 font-space-grotesk placeholder:text-zinc-700 form-input-premium"
+                                placeholder="YOUR NAME" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-[10px] uppercase font-black text-primary tracking-widest mb-3 block">Phone
+                                Number</label>
+                            <input
+                                class="w-full bg-transparent border-0 border-b-2 border-zinc-800 text-on-surface focus:ring-0 focus:border-primary transition-all py-3 font-space-grotesk placeholder:text-zinc-700 form-input-premium"
+                                placeholder="+91 XXXX XXX XXX" type="tel" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-[10px] uppercase font-black text-primary tracking-widest mb-3 block">Message
+                                or Query</label>
+                            <textarea
+                                class="w-full bg-transparent border-0 border-b-2 border-zinc-800 text-on-surface focus:ring-0 focus:border-primary transition-all py-3 font-space-grotesk resize-none placeholder:text-zinc-700 form-input-premium"
+                                placeholder="HOW CAN WE ASSIST YOU?" rows="3"></textarea>
+                        </div>
+                        <button
+                            class="bg-primary text-white w-full py-5 font-black uppercase tracking-[0.4em] text-sm hover:bg-red-700 transition-all"
+                            type="submit">
+                            TRANSMIT MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-black py-20 px-8 border-t border-white/5 relative overflow-hidden">
+        <div class="absolute left-0 bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent">
+        </div>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 relative z-10">
+            <div class="md:col-span-4 space-y-6">
+                <a class="text-3xl font-space-grotesk font-black tracking-tighter text-on-surface uppercase" href="#">
+                    <span class="text-primary italic">Zovero</span>
+                </a>
+                <p class="text-zinc-500 text-[10px] uppercase tracking-widest leading-relaxed max-w-xs font-bold">
+                    Experience The Next Level
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 bg-zinc-900 flex items-center justify-center hover:bg-primary transition-all group"
+                        href="https://www.facebook.com/profile.php?id=61579546164260"><span
+                            class="material-symbols-outlined text-zinc-500 group-hover:text-white text-lg">facebook</span></a>
+                    <a class="w-10 h-10 bg-zinc-900 flex items-center justify-center hover:bg-primary transition-all group"
+                        href="#"><span
+                            class="material-symbols-outlined text-zinc-500 group-hover:text-white text-lg">share</span></a>
+                    <a class="w-10 h-10 bg-zinc-900 flex items-center justify-center hover:bg-primary transition-all group"
+                        href="#"><span
+                            class="material-symbols-outlined text-zinc-500 group-hover:text-white text-lg">video_library</span></a>
+                </div>
+            </div>
 
+            <div class="md:col-span-5 grid grid-cols-2 gap-8">
+                <div>
+                    <h5 class="text-white font-space-grotesk font-black text-[10px] uppercase tracking-[0.3em] mb-6">
+                        Equipment</h5>
+                    <ul class="space-y-4 text-zinc-500 text-[10px] font-black uppercase tracking-widest">
+                        <li><a class="hover:text-primary transition-colors" href="#products">Cooling Seats</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#products">Wind Boosters</a></li>
+
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-white font-space-grotesk font-black text-[10px] uppercase tracking-[0.3em] mb-6">
+                        Network</h5>
+                    <ul class="space-y-4 text-zinc-500 text-[10px] font-black uppercase tracking-widest">
+                        <li><a class="hover:text-primary transition-colors" href="#about">HQ - Coimbatore</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#about">Branch Network</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="mailto:support@zovero.in">Support</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 space-y-6 text-right">
+                <div class="text-primary text-[10px] font-black uppercase tracking-[0.3em]">Operational Status</div>
+                <div class="text-on-surface text-4xl font-space-grotesk font-black uppercase italic">Online</div>
+                <div class="text-zinc-600 text-[9px] font-black tracking-[0.2em] mt-4 uppercase">© 2026 ZOVERO</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Interactive Background Mouse Movement
+        const glow = document.getElementById('mouse-glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--mouse-x', `${e.clientX}px`);
+            glow.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        // Intersection Observer for Scroll Reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Spotlight effect for dark cards
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // Branch Switcher Logic
+        const branches = {
+            coimbatore: {
+                name: "Zovero Coimbatore HQ",
+                coords: "11.020212220154585,77.01972065470326",
+                address: "No. 42, Avinashi Road, Civil Aerodrome Post, Peelamedu, Coimbatore - 641014",
+                phone: "+91 98765 43210",
+                email: "cb@zovero.com"
+            },
+            madurai: {
+                name: "Zovero Madurai Branch",
+                coords: "9.917036238094521,78.11405757751459",
+                address: "Plot B-14, Madurai Integrated IT Park, Madurai - 625020",
+                phone: "+91 98765 43222",
+                email: "md@zovero.com"
+            },
+            salem: {
+                name: "Zovero Salem Distribution",
+                coords: "11.653534866228043,78.15030338209048",
+                address: "Industrial Estate Road, Five Roads, Salem - 636004",
+                phone: "+91 98765 43333",
+                email: "sl@zovero.com"
+            },
+            chennai: {
+                name: "Zovero Chennai Design Lab",
+                coords: "13.073453011923698,80.2067425997415",
+                address: "Olympia Tech Park, Guindy Industrial Estate, Chennai - 600032",
+                phone: "+91 98765 43444",
+                email: "ch@zovero.com"
+            }
+        };
+
+        function switchBranch(key) {
+            const branch = branches[key];
+            const iframe = document.querySelector('.map-iframe');
+
+            // Update Map via Embed Query (hl=en for English interface)
+            iframe.src = `https://www.google.com/maps?q=${branch.coords}&hl=en&z=15&output=embed`;
+
+            // Update Contact Info Text
+            document.getElementById('branch-name').innerText = branch.name;
+            document.getElementById('branch-address').innerText = branch.address;
+            document.getElementById('branch-phone').innerText = branch.phone;
+            document.getElementById('branch-email').innerText = branch.email;
+
+            // Update Navigation Link
+            document.getElementById('branch-drive').href = `https://www.google.com/maps/dir/?api=1&destination=${branch.coords}`;
+
+            // Manage Button State
+            document.querySelectorAll('.branch-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${key}`).classList.add('active');
+
+            // Optional: Re-trigger reveal animation for the text content
+            const infoBox = document.getElementById('branch-info');
+            infoBox.classList.remove('active');
+            setTimeout(() => infoBox.classList.add('active'), 50);
+        }
+
+        // Set default branch on load
+        window.addEventListener('DOMContentLoaded', () => {
+            switchBranch('coimbatore');
+        });
+
+        // Product Carousel Logic
+        let currentSlide = 0;
+        const totalSlides = 2;
+
+        function updateSlide() {
+            document.querySelectorAll('.product-slide').forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        }
+
+        // Auto slide
+        setInterval(nextSlide, 5000);
+    </script>
 </body>
+
 </html>
