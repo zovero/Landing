@@ -256,6 +256,96 @@
             transform: scale(1.08);
         }
 
+        /* Instagram reel showcase */
+        .reels-scroller {
+            --card-w-num: 280;
+            --card-w: calc(var(--card-w-num) * 1px);
+            --reel-k: calc(var(--card-w-num) / 340 * 1.52);
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding: 4rem calc(50% - var(--card-w) / 2);
+            margin: -1.5rem 0;
+        }
+
+        .reels-scroller::-webkit-scrollbar { display: none; }
+
+        .reel-nav-button {
+            position: absolute;
+            top: 50%;
+            z-index: 8;
+            width: 46px;
+            height: 46px;
+            border: 1px solid #ff0000;
+            background: rgba(19, 19, 19, 0.92);
+            color: #ffffff;
+            font: 500 28px/1 'Space Grotesk', sans-serif;
+            transform: translateY(-50%);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+
+        .reel-nav-button:hover {
+            background: #ff0000;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.45);
+        }
+
+        .reel-nav-prev { left: -23px; }
+        .reel-nav-next { right: -23px; }
+
+        .reel-card {
+            --reel-top: 60px;
+            flex: 0 0 var(--card-w);
+            width: var(--card-w);
+            aspect-ratio: 9 / 16;
+            position: relative;
+            z-index: 1;
+            scroll-snap-align: center;
+            background: #000;
+            border: 2px solid rgba(255, 0, 0, 0.45);
+            border-radius: 22px;
+            overflow: hidden;
+            isolation: isolate;
+            opacity: 0.55;
+            transform: scale(0.82);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s,
+                        border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .reel-card:not(.is-focus):hover { opacity: 0.85; }
+
+        .reel-card.is-focus,
+        .reel-card.is-playing {
+            z-index: 5;
+            opacity: 1;
+            transform: scale(1.12);
+            border-color: #ff0000;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 0, 0, 0.45);
+        }
+
+        /* Small cards: the first click centers them, so the iframe must not take the click */
+        .reel-card:not(.is-focus):not(.is-playing) { cursor: pointer; }
+        .reel-card:not(.is-focus):not(.is-playing) iframe { pointer-events: none; }
+
+        .reel-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            left: 50%;
+            width: 340px;
+            margin-left: -170px;
+            height: 760px;
+            border: 0;
+            transform-origin: top center;
+            transform: translateY(calc(var(--reel-top) * var(--reel-k) * -1)) scale(var(--reel-k));
+        }
+
+        @media (max-width: 640px) {
+            .reels-scroller { --card-w-num: 230; }
+        }
+
         #map {
             width: 100%;
             height: 500px;
@@ -278,24 +368,6 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
-        /* Carousel Styles */
-        .product-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            pointer-events: none;
-        }
-
-        .product-slide.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .carousel-dot.active {
-            background: #FF0000;
-            width: 2rem;
-        }
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -383,6 +455,7 @@
                 <a class="text-primary border-b border-primary pb-1" href="#home">Home</a>
                 <a class="text-zinc-400 hover:text-primary transition-colors" href="#products">Products</a>
                 <a class="text-zinc-400 hover:text-primary transition-colors" href="#about">About</a>
+                <a class="text-zinc-400 hover:text-primary transition-colors" href="#reels">Videos</a>
                 <a class="text-zinc-400 hover:text-primary transition-colors" href="#contact">Contact</a>
             </div>
             <div class="flex items-center gap-6">
@@ -466,107 +539,45 @@
                     Catalogue</div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <!-- Featured Product Carousel -->
-                <div id="product-carousel"
-                    class="md:col-span-8 bg-surface-container-low relative overflow-hidden h-[480px] border border-white/5 hover:border-primary/30 transition-colors reveal">
-
-                    <!-- Slide 1: Cooling Seat -->
-                    <div class="product-slide active" id="slide-0">
-                        <img alt="Cooling Seat"
-                            class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDiWZHtg3qC3H0ihxsRaAgWAfohXBf-Ws8WABU6cF2rvKoPFUj8MZbTz5LA1v4qai1I6AfRp50aLt578BIqJ4sksdc0UjgDWmx-u-MqwG1HrekYF7EWfNx_XbSo1jaOT5tvkjcANz4IY8XvvCRzvKzitEE8r5AA2wU_NmMDgryJrdOMQqn9h0PgKkV8hOWe17hYj57v3i7ON7ktL77jZcftPBpRq_c3teu4mejH42mpgffed2IcuasGGdz1VxgM3doEiVl4m1CD7Cd" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-10 z-10">
-                            <span
-                                class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Featured</span>
-                            <h3 class="text-5xl font-space-grotesk font-black uppercase mb-3">Ventilated Cooling Seat
-                            </h3>
-                            <p class="text-zinc-400 max-w-sm mb-6 font-light leading-relaxed">
-                                Experience peak comfort with our Ventilated Cooling Seat. Active airflow integration
-                                with biometric temperature sensors keeps you cool in any climate. <br>
-                                <span class="text-white font-bold tracking-widest text-[10px] uppercase mt-2 block">
-                                    Variants: Pro 16 Fans & Max 24 Fans
-                                </span>
-                            </p>
-                            <div class="flex gap-4">
-                                <a href="#cooling-catalogue.pdf"
-                                    class="bg-zinc-900 border border-white/10 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:border-primary hover:text-primary transition-all flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-sm">download</span> Catalogue
-                                </a>
-                                <a href="#contact"
-                                    class="bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">
-                                    Enquire Now
-                                </a>
-                            </div>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article
+                    class="product-card bg-surface-container-low border border-white/5 hover:border-primary/30 transition-colors reveal overflow-hidden">
+                    <div class="h-[360px] md:h-[420px] bg-black/40 flex items-center justify-center p-8">
+                        <img src="cyan-ventilated-luxury-car-seat.png" alt="Ventilated cooling seat with 24 fans"
+                            class="w-full h-full object-contain" loading="lazy" />
                     </div>
-
-                    <!-- Slide 2: Windbooster -->
-                    <div class="product-slide" id="slide-1">
-                        <img alt="Windbooster"
-                            class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6r-O-P6b-iB_9P-B7o_8yN-U-V-w-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z-O-z" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-10 z-10">
-                            <span
-                                class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Now
-                                Trending</span>
-                            <h3 class="text-5xl font-space-grotesk font-black uppercase mb-3">Windbooster</h3>
-                            <p class="text-zinc-400 max-w-sm mb-6 font-light leading-relaxed">
-                                Boost your car performance with Windbooster Throttle Controller. <br>
-                                <span class="text-white font-bold tracking-widest text-[10px] uppercase mt-2 block">
-                                    Instant Response & Pure Performance
-                                </span>
-                            </p>
-                            <div class="flex gap-4">
-                                <a href="#windbooster-catalogue.pdf"
-                                    class="bg-zinc-900 border border-white/10 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:border-primary hover:text-primary transition-all flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-sm">download</span> Catalogue
-                                </a>
-                                <a href="#contact"
-                                    class="bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">
-                                    Enquire Now
-                                </a>
-                            </div>
-                        </div>
+                    <div class="p-8">
+                        <span
+                            class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest inline-block mb-4">Max
+                            24 Fans</span>
+                        <h3 class="text-3xl font-space-grotesk font-black uppercase mb-3">Ventilated Cooling Seat</h3>
+                        <p class="text-zinc-400 mb-6 font-light leading-relaxed">Enjoy powerful airflow and lasting
+                            comfort with our Max cooling seat.</p>
+                        <a href="#contact"
+                            class="inline-block bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">Enquire
+                            Now</a>
                     </div>
+                </article>
 
-                    <!-- Slide Controls -->
-                    <div class="absolute top-1/2 -translate-y-1/2 left-4 z-20">
-                        <button onclick="prevSlide()"
-                            class="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-primary transition-all">
-                            <span class="material-symbols-outlined text-white">chevron_left</span>
-                        </button>
+                <article
+                    class="product-card bg-surface-container-low border border-white/5 hover:border-primary/30 transition-colors reveal overflow-hidden">
+                    <div class="h-[360px] md:h-[420px] bg-black/40 flex items-center justify-center p-8">
+                        <img src="high-tech-car-seat-blue-cooling-fans.png" alt="Ventilated cooling seat with 16 fans"
+                            class="w-full h-full object-contain" loading="lazy" />
                     </div>
-                    <div class="absolute top-1/2 -translate-y-1/2 right-4 z-20">
-                        <button onclick="nextSlide()"
-                            class="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-primary transition-all">
-                            <span class="material-symbols-outlined text-white">chevron_right</span>
-                        </button>
+                    <div class="p-8">
+                        <span
+                            class="bg-primary text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest inline-block mb-4">Pro
+                            16 Fans</span>
+                        <h3 class="text-3xl font-space-grotesk font-black uppercase mb-3">Ventilated Cooling Seat</h3>
+                        <p class="text-zinc-400 mb-6 font-light leading-relaxed">Stay cool on every drive with
+                            efficient, comfortable ventilation.</p>
+                        <a href="#contact"
+                            class="inline-block bg-primary text-white px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-red-700 transition-all">Enquire
+                            Now</a>
                     </div>
-
-                    <!-- Slide Indicators -->
-                    <div class="absolute bottom-10 right-10 z-20 flex gap-2">
-                        <div class="carousel-dot w-4 h-1 bg-white/20 transition-all duration-500 active" id="dot-0">
-                        </div>
-                        <div class="carousel-dot w-4 h-1 bg-white/20 transition-all duration-500" id="dot-1"></div>
-                    </div>
-                </div>
-
-                <!-- Wind Booster Card (Standalone Refined) -->
-                <div
-                    class="md:col-span-4 bg-surface-container-low p-10 flex flex-col justify-between border border-white/5 hover:border-primary/30 transition-colors relative spotlight-card reveal h-[480px]">
-                    <div class="flex justify-between items-start">
-                        <div class="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
-                            <span class="material-symbols-outlined text-primary text-3xl">bolt</span>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-primary font-black font-space-grotesk text-xl">NOW TRENDING</div>
-
-                        </div>
-                    </div>
-
+                </article>
+            </div>
     </section>
     <div
         class="md:col-span-8 bg-black border border-white/5 h-[200px] flex items-center justify-center relative overflow-hidden group">
@@ -586,13 +597,13 @@
     <!-- About Section -->
     <section id="about" class="py-24 bg-surface-container-lowest relative overflow-hidden">
         <div class="absolute right-0 top-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/2"></div>
-        <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+        <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-start relative z-10">
             <div class="relative reveal">
                 <div class="absolute -top-6 -left-6 w-40 h-40 border-t-4 border-l-4 border-primary z-20"></div>
                 <!-- Interactive Google Map -->
                 <div id="map" class="shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125322.44153023067!2d76.8848325983794!3d11.012014524419047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f976613%3A0x6ed70d4c06cf497c!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1713631545678!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2043389.5478897517!2d78.6568942!3d11.1271225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c582b1189633%3A0x559475cc463361f0!2sTamil%20Nadu!5e0!3m2!1sen!2sin!4v1713631545678!5m2!1sen!2sin"
                         class="map-iframe" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
@@ -612,7 +623,8 @@
                         id="btn-chennai">Chennai</button>
                 </div>
 
-                <!-- Branch Contact Info Panel -->
+                <!-- Branch Contact Info Panel (commented out for demo) -->
+                <!--
                 <div id="branch-info" class="mt-4 p-6 bg-primary/5 border border-primary/20 reveal">
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0">
@@ -634,7 +646,7 @@
                                     <span id="branch-email" class="text-white text-xs font-bold">cb@zovero.com</span>
                                 </div>
                             </div>
-                            <!-- Drive To Button -->
+                            Drive To Button:
                             <a id="branch-drive" href="#" target="_blank"
                                 class="inline-flex items-center gap-2 mt-6 px-6 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
                                 <span class="material-symbols-outlined text-sm">directions_car</span>
@@ -643,6 +655,7 @@
                         </div>
                     </div>
                 </div>
+                -->
             </div>
             <div class="space-y-8 reveal">
                 <h2
@@ -742,6 +755,30 @@
                     <p class="text-zinc-500 text-[11px] leading-relaxed uppercase tracking-tight font-bold">
                         Plug-and-play modular design compatible with major luxury platforms.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- Instagram Reels Section -->
+    <section id="reels" class="py-24 bg-surface px-8 border-y border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto reveal">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-8">
+                <div>
+                    <div class="text-primary text-[10px] font-black uppercase tracking-[0.35em] mb-5">Zovero Videos</div>
+                    <h2 class="text-5xl font-space-grotesk font-black tracking-tighter uppercase leading-none">Watch It
+                        <span class="text-gradient italic">Move</span></h2>
+                </div>
+            </div>
+            <div class="relative">
+            <button id="reel-prev" class="reel-nav-button reel-nav-prev" type="button" aria-label="Previous video">‹</button>
+            <div id="reels-scroller" class="reels-scroller" aria-label="Zovero Instagram reels">
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXbpy4RgVna/embed" loading="lazy" title="Zovero Instagram reel 1" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXx-wK8S4cZ/embed" loading="lazy" title="Zovero Instagram reel 2" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DX8iDLGRWsA/embed" loading="lazy" title="Zovero Instagram reel 3" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DYuM4sYzzV_/embed" loading="lazy" title="Zovero Instagram reel 4" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DZNFQh_zs3e/embed" loading="lazy" title="Zovero Instagram reel 5" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DdYK1nmzkTP/embed" loading="lazy" title="Zovero Instagram reel 6" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+            </div>
+            <button id="reel-next" class="reel-nav-button reel-nav-next" type="button" aria-label="Next video">›</button>
             </div>
         </div>
     </section>
@@ -863,6 +900,9 @@
                         <li><a class="hover:text-primary transition-colors" href="#about">Branch Network</a></li>
                         <li><a class="hover:text-primary transition-colors" href="mailto:support@zovero.in">Support</a>
                         </li>
+                        <li><a class="hover:text-primary transition-colors" href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="shipping-policy.html">Shipping Policy</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
 
                     </ul>
                 </div>
@@ -912,6 +952,131 @@
             });
         });
 
+        // Reels: auto-scroll that pauses while hovering / playing
+        const reelsScroller = document.getElementById('reels-scroller');
+        if (reelsScroller) {
+            const reelCards = [...reelsScroller.querySelectorAll('.reel-card')];
+            const AUTO_DELAY = 4000;
+            const MAX_PLAY_LOCK = 90000;
+            let reelIndex = 0, hovering = false, videoActive = false, lockTimer = null;
+
+            const centerCard = (card) => {
+                const s = reelsScroller.getBoundingClientRect();
+                const c = card.getBoundingClientRect();
+                const delta = (c.left + c.width / 2) - (s.left + s.width / 2);
+                reelsScroller.scrollTo({ left: reelsScroller.scrollLeft + delta, behavior: 'smooth' });
+            };
+
+            const goTo = (i) => {
+                reelIndex = (i + reelCards.length) % reelCards.length;
+                centerCard(reelCards[reelIndex]);
+            };
+
+            const updateFocus = () => {
+                const s = reelsScroller.getBoundingClientRect();
+                const mid = s.left + s.width / 2;
+                let nearest = 0, best = Infinity;
+                reelCards.forEach((card, index) => {
+                    const r = card.getBoundingClientRect();
+                    const d = Math.abs((r.left + r.width / 2) - mid);
+                    if (d < best) { best = d; nearest = index; }
+                });
+                reelIndex = nearest;
+                reelCards.forEach((c, i) => c.classList.toggle('is-focus', i === nearest));
+                stopOthers(reelCards[nearest]);
+            };
+
+            setInterval(() => {
+                if (hovering || videoActive || document.hidden) return;
+                goTo(reelIndex + 1);
+            }, AUTO_DELAY);
+
+            reelsScroller.addEventListener('pointerenter', () => hovering = true);
+            reelsScroller.addEventListener('pointerleave', () => hovering = false);
+
+            const setPlaying = (card) => {
+                reelCards.forEach(c => c.classList.toggle('is-playing', c === card));
+                if (card) centerCard(card);
+            };
+
+            // Remember which cards were played, so they can be stopped later.
+            const playedCards = new Set();
+
+            const stopCard = (card) => {
+                const f = card.querySelector('iframe');
+                if (!f) return;
+                const src = f.dataset.src || f.getAttribute('src');
+                f.dataset.src = src;
+                f.setAttribute('src', 'about:blank');
+                setTimeout(() => f.setAttribute('src', src), 60);
+                card.classList.remove('is-playing');
+                playedCards.delete(card);
+            };
+
+            const stopOthers = (keep) => {
+                [...playedCards].forEach(c => { if (c !== keep) stopCard(c); });
+            };
+
+            window.addEventListener('blur', () => {
+                setTimeout(() => {
+                    const active = document.activeElement;
+                    if (active && active.tagName === 'IFRAME' && reelsScroller.contains(active)) {
+                        videoActive = true;
+                        const card = active.closest('.reel-card');
+                        stopOthers(card);
+                        playedCards.add(card);
+                        setPlaying(card);
+                        clearTimeout(lockTimer);
+                        lockTimer = setTimeout(() => {
+                            videoActive = false;
+                            stopOthers(null);
+                            setPlaying(null);
+                        }, MAX_PLAY_LOCK);
+                    }
+                }, 0);
+            });
+
+            document.addEventListener('pointerdown', (event) => {
+                if (!reelsScroller.contains(event.target)) {
+                    videoActive = false;
+                    stopOthers(null);
+                    setPlaying(null);
+                    clearTimeout(lockTimer);
+                }
+            });
+
+            window.addEventListener('focus', () => {
+                videoActive = false;
+                stopOthers(null);
+                setPlaying(null);
+                clearTimeout(lockTimer);
+            });
+
+            reelsScroller.addEventListener('scroll', updateFocus, { passive: true });
+            window.addEventListener('resize', updateFocus);
+
+            document.getElementById('reel-prev')?.addEventListener('click', () => goTo(reelIndex - 1));
+            document.getElementById('reel-next')?.addEventListener('click', () => goTo(reelIndex + 1));
+
+            // Click a small card: center it first; the video starts on the next click.
+            reelCards.forEach((card) => {
+                card.addEventListener('click', () => {
+                    if (card.classList.contains('is-focus') || card.classList.contains('is-playing')) return;
+                    videoActive = true;
+                    stopOthers(card);
+                    setPlaying(card);
+                    clearTimeout(lockTimer);
+                    lockTimer = setTimeout(() => {
+                        videoActive = false;
+                        stopOthers(null);
+                        setPlaying(null);
+                    }, MAX_PLAY_LOCK);
+                });
+            });
+
+            updateFocus();
+        }
+
         // Branch Switcher Logic
         const branches = {
             coimbatore: {
@@ -948,8 +1113,8 @@
             const branch = branches[key];
             const iframe = document.querySelector('.map-iframe');
 
-            // Update Map via Embed Query (hl=en for English interface)
-            iframe.src = `https://www.google.com/maps?q=${branch.coords}&hl=en&z=15&output=embed`;
+            // Update Map - show Tamil Nadu state map for all branches
+            iframe.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2043389.5478897517!2d78.6568942!3d11.1271225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c582b1189633%3A0x559475cc463361f0!2sTamil%20Nadu!5e0!3m2!1sen!2sin!4v1713631545678!5m2!1sen!2sin`;
 
             // Update Contact Info Text
             document.getElementById('branch-name').innerText = branch.name;
@@ -974,32 +1139,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             switchBranch('coimbatore');
         });
-
-        // Product Carousel Logic
-        let currentSlide = 0;
-        const totalSlides = 2;
-
-        function updateSlide() {
-            document.querySelectorAll('.product-slide').forEach((slide, index) => {
-                slide.classList.toggle('active', index === currentSlide);
-            });
-            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlide();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlide();
-        }
-
-        // Auto slide
-        setInterval(nextSlide, 5000);
 
         // Form submission logic
         document.getElementById('contact-form').addEventListener('submit', async function (e) {
