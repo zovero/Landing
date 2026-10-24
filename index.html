@@ -393,6 +393,59 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
+        .mobile-nav-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            border: 0;
+            background: rgba(0, 0, 0, 0.72);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .mobile-nav-backdrop.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-nav-panel {
+            position: fixed;
+            inset: 0 0 0 auto;
+            z-index: 50;
+            width: min(20rem, 85vw);
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: auto;
+            transform: translateX(100%);
+            visibility: hidden;
+            transition: transform 0.3s ease, visibility 0s linear 0.3s;
+        }
+
+        .mobile-nav-panel.is-open {
+            transform: translateX(0);
+            visibility: visible;
+            transition: transform 0.3s ease, visibility 0s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .mobile-nav-backdrop,
+            .mobile-nav-panel {
+                transition: none;
+            }
+        }
+
+        @media (max-width: 639px) {
+            #contact-form-panel {
+                padding: 1.5rem;
+            }
+
+            .reel-nav-button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -470,9 +523,9 @@
     <div id="mouse-glow"></div>
 
     <!-- TopNavBar - Pill Shape Glassmorphism -->
-    <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-4rem)] max-w-5xl">
+    <div class="fixed top-3 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-5xl">
         <nav
-            class="glass-panel rounded-full px-8 h-16 flex justify-between items-center shadow-2xl border border-white/10 backdrop-blur-2xl">
+            class="glass-panel rounded-full px-4 md:px-8 h-14 md:h-16 flex justify-between items-center shadow-2xl border border-white/10 backdrop-blur-2xl">
             <div class="text-xl font-black text-primary tracking-tighter uppercase font-space-grotesk"><span
                     class="italic">ZOVERO</span></div>
             <div
@@ -483,15 +536,47 @@
                 <a class="text-zinc-400 hover:text-primary transition-colors" href="#reels">Videos</a>
                 <a class="text-zinc-400 hover:text-primary transition-colors" href="#contact">Contact</a>
             </div>
-            <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-6">
                 <a href="https://wa.me/c/919952076707" target="_blank"
+                    aria-label="Open Zovero shop on WhatsApp"
                     class="material-symbols-outlined text-zinc-400 hover:text-primary transition-all duration-300 text-xl">shopping_cart</a>
                 <a href="#contact"
                     class="bg-primary text-white px-5 py-2 font-black text-[10px] tracking-widest uppercase hover:bg-red-700 transition-all rounded-full flex items-center justify-center">
                     GET STARTED
                 </a>
             </div>
+            <button id="mobile-menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center text-white border border-white/15 rounded-full hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+                <span id="mobile-menu-icon" class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
         </nav>
+        <button id="mobile-nav-backdrop" class="mobile-nav-backdrop md:hidden" type="button" aria-label="Close navigation menu" tabindex="-1"></button>
+        <aside id="mobile-nav-panel" class="mobile-nav-panel md:hidden glass-panel border-l border-white/10 p-6 pt-8 flex flex-col" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true">
+            <div class="flex items-center justify-between border-b border-white/10 pb-6">
+                <span class="text-xl font-black text-primary tracking-tighter uppercase font-space-grotesk italic">ZOVERO</span>
+                <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-zinc-300 border border-white/15 rounded-full hover:border-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                    type="button" aria-label="Close navigation menu">
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-2 py-6 font-space-grotesk tracking-widest uppercase text-sm font-bold" aria-label="Mobile navigation">
+                <a class="mobile-nav-link rounded-lg px-4 py-3 text-primary bg-primary/10" href="#home">Home</a>
+                <a class="mobile-nav-link rounded-lg px-4 py-3 text-zinc-300 hover:text-primary hover:bg-white/5" href="#products">Products</a>
+                <a class="mobile-nav-link rounded-lg px-4 py-3 text-zinc-300 hover:text-primary hover:bg-white/5" href="#about">About</a>
+                <a class="mobile-nav-link rounded-lg px-4 py-3 text-zinc-300 hover:text-primary hover:bg-white/5" href="#reels">Videos</a>
+                <a class="mobile-nav-link rounded-lg px-4 py-3 text-zinc-300 hover:text-primary hover:bg-white/5" href="#contact">Contact</a>
+            </nav>
+            <div class="mt-auto flex flex-col gap-3 border-t border-white/10 pt-6">
+                <a href="https://wa.me/c/919952076707" target="_blank" rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-2 border border-white/15 px-5 py-3 text-white font-bold text-xs tracking-widest uppercase hover:border-primary">
+                    <span class="material-symbols-outlined text-lg" aria-hidden="true">shopping_cart</span>
+                    Shop on WhatsApp
+                </a>
+                <a href="#contact" class="mobile-nav-link bg-primary text-center px-5 py-3 text-white font-black text-xs tracking-widest uppercase rounded-full hover:bg-red-700">
+                    Get Started
+                </a>
+            </div>
+        </aside>
     </div>
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -501,14 +586,14 @@
             <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent"></div>
             <div class="absolute inset-0 vignette-overlay"></div>
         </div>
-        <div class="container mx-auto px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div class="container mx-auto px-5 md:px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8">
             <div class="md:col-span-7 flex flex-col items-start gap-6 reveal transition-delay-100">
                 <div
                     class="inline-flex items-center gap-2 border border-primary/40 bg-primary/10 px-3 py-1 text-primary tracking-[0.2em] text-[10px] uppercase font-bold">
                     <span class="w-1.5 h-1.5 bg-primary animate-pulse"></span> Intelligent Engineering
                 </div>
                 <h1
-                    class="text-6xl md:text-5xl font-space-grotesk font-black leading-[0.9] tracking-tighter text-on-surface">
+                    class="text-4xl sm:text-5xl md:text-5xl font-space-grotesk font-black leading-[0.95] tracking-tighter text-on-surface">
                     CHOOSE <span class="text-primary italic">ZOVERO.</span><br />
                     EXPERIENCE THE <span class="text-gradient">NEXT LEVEL.</span>
                 </h1>
@@ -517,16 +602,16 @@
                     Zovero brings advanced automotive accessories built for comfort and performance.
                     Every product delivered is designed to enhance how your car feels and responds.
                 </p>
-                <div class="flex gap-4 mt-4">
+                <div class="flex w-full flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
                     <a href="#products"
-                        class="bg-primary text-white px-10 py-4 font-black tracking-widest uppercase flex items-center gap-3 hover:bg-red-700 transition-all red-glow-strong">
+                        class="bg-primary text-white w-full sm:w-auto justify-center px-6 sm:px-10 py-4 font-black tracking-widest uppercase flex items-center gap-3 hover:bg-red-700 transition-all red-glow-strong">
                         EXPLORE PRODUCTS
                         <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
                     </a>
-                    <button
-                        class="border border-white/20 px-10 py-4 font-black tracking-widest uppercase hover:bg-white/5 transition-all text-white">
+                    <a href="#reels"
+                        class="border border-white/20 w-full sm:w-auto justify-center px-6 sm:px-10 py-4 font-black tracking-widest uppercase flex items-center hover:bg-white/5 transition-all text-white">
                         WATCH TECH
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="hidden md:flex md:col-span-5 items-end justify-end">
@@ -866,7 +951,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-black p-12 border-l-4 border-primary red-glow-strong">
+                <div id="contact-form-panel" class="bg-black p-12 border-l-4 border-primary red-glow-strong">
                     <form id="contact-form" class="space-y-8">
                         <div>
                             <label class="text-[10px] uppercase font-black text-primary tracking-widest mb-3 block">Full
@@ -960,6 +1045,62 @@
         </div>
     </footer>
     <script>
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileNavPanel = document.getElementById('mobile-nav-panel');
+        const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+        let previousBodyOverflow = '';
+
+        const setMobileMenuOpen = (open) => {
+            mobileMenuToggle.setAttribute('aria-expanded', String(open));
+            mobileMenuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            mobileMenuIcon.textContent = open ? 'close' : 'menu';
+            mobileNavPanel.classList.toggle('is-open', open);
+            mobileNavPanel.setAttribute('aria-hidden', String(!open));
+            mobileNavBackdrop.classList.toggle('is-open', open);
+            mobileNavBackdrop.tabIndex = open ? 0 : -1;
+            if (open) {
+                previousBodyOverflow = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
+                mobileNavPanel.querySelector('.mobile-nav-link').focus();
+            } else {
+                document.body.style.overflow = previousBodyOverflow;
+                mobileMenuToggle.focus();
+            }
+        };
+
+        mobileMenuToggle.addEventListener('click', () => {
+            setMobileMenuOpen(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+        });
+        mobileMenuClose.addEventListener('click', () => setMobileMenuOpen(false));
+        mobileNavBackdrop.addEventListener('click', () => setMobileMenuOpen(false));
+        mobileNavPanel.querySelectorAll('.mobile-nav-link').forEach((link) => {
+            link.addEventListener('click', () => setMobileMenuOpen(false));
+        });
+        document.addEventListener('keydown', (event) => {
+            if (mobileMenuToggle.getAttribute('aria-expanded') !== 'true') return;
+            if (event.key === 'Escape') {
+                setMobileMenuOpen(false);
+            } else if (event.key === 'Tab') {
+                const focusable = [...mobileNavPanel.querySelectorAll('a[href], button:not([disabled])')];
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        });
+        window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+            if (event.matches && mobileMenuToggle.getAttribute('aria-expanded') === 'true') {
+                setMobileMenuOpen(false);
+            }
+        });
+
         // Interactive Background Mouse Movement
         const glow = document.getElementById('mouse-glow');
         window.addEventListener('mousemove', (e) => {
