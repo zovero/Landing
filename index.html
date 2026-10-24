@@ -342,6 +342,32 @@
             transform: translateY(calc(var(--reel-top) * var(--reel-k) * -1)) scale(var(--reel-k));
         }
 
+        .reel-open-link {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            z-index: 7;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            background: rgba(19, 19, 19, 0.9);
+            color: #ffffff;
+            font: 700 10px 'Space Grotesk', sans-serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .reel-open-link:hover,
+        .reel-open-link:focus-visible {
+            border-color: #ff0000;
+            background: #ff0000;
+            outline: none;
+        }
+
         @media (max-width: 640px) {
             .reels-scroller { --card-w-num: 230; }
         }
@@ -766,17 +792,18 @@
                     <div class="text-primary text-[10px] font-black uppercase tracking-[0.35em] mb-5">Zovero Videos</div>
                     <h2 class="text-5xl font-space-grotesk font-black tracking-tighter uppercase leading-none">Watch It
                         <span class="text-gradient italic">Move</span></h2>
+                    <p class="mt-4 max-w-xl text-sm leading-relaxed text-zinc-400">If your browser blocks Instagram embeds, use “Open on Instagram” to watch each video directly.</p>
                 </div>
             </div>
             <div class="relative">
             <button id="reel-prev" class="reel-nav-button reel-nav-prev" type="button" aria-label="Previous video">‹</button>
             <div id="reels-scroller" class="reels-scroller" aria-label="Zovero Instagram reels">
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXbpy4RgVna/embed" loading="lazy" title="Zovero Instagram reel 1" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXx-wK8S4cZ/embed" loading="lazy" title="Zovero Instagram reel 2" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DX8iDLGRWsA/embed" loading="lazy" title="Zovero Instagram reel 3" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DYuM4sYzzV_/embed" loading="lazy" title="Zovero Instagram reel 4" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DZNFQh_zs3e/embed" loading="lazy" title="Zovero Instagram reel 5" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
-                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DdYK1nmzkTP/embed" loading="lazy" title="Zovero Instagram reel 6" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXbpy4RgVna/embed" loading="lazy" title="Zovero Instagram reel 1" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DXbpy4RgVna/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 1 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DXx-wK8S4cZ/embed" loading="lazy" title="Zovero Instagram reel 2" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DXx-wK8S4cZ/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 2 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DX8iDLGRWsA/embed" loading="lazy" title="Zovero Instagram reel 3" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DX8iDLGRWsA/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 3 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DYuM4sYzzV_/embed" loading="lazy" title="Zovero Instagram reel 4" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DYuM4sYzzV_/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 4 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DZNFQh_zs3e/embed" loading="lazy" title="Zovero Instagram reel 5" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DZNFQh_zs3e/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 5 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
+                <article class="reel-card"><iframe src="https://www.instagram.com/reel/DdYK1nmzkTP/embed" loading="lazy" title="Zovero Instagram reel 6" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><a class="reel-open-link" href="https://www.instagram.com/reel/DdYK1nmzkTP/" target="_blank" rel="noopener noreferrer" aria-label="Open Zovero Instagram reel 6 on Instagram">Open on Instagram <span aria-hidden="true">↗</span></a></article>
             </div>
             <button id="reel-next" class="reel-nav-button reel-nav-next" type="button" aria-label="Next video">›</button>
             </div>
